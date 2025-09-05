@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Turn.js — A4 Flipbook</title>
+<style>
+  :root{ --bg:#071019; --fg:#eef6ff; --accent:#4da3ff }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#071019,#0b1420);color:var(--fg);font-family:Inter,system-ui,Arial}
+  .topbar{position:fixed;left:0;right:0;top:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(6,10,15,0.6);z-index:60}
+  .brand{display:flex;gap:10px;align-items:center;font-weight:600}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+  .controls{display:flex;gap:8px}
+  .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:var(--fg);cursor:pointer}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .stage{position:fixed;inset:56px 0 0 0;display:grid;place-items:center;perspective:2000px}
+  #flipbook-wrap{ width:min(94vw,1200px); display:block; }
+  #flipbook{
+    margin:0 auto;
+    background:#09121d;
+    border-radius:12px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    position:relative;
+    overflow:visible;
+  }
+  #flipbook .page { display:block; float:left; overflow:hidden; background:#fff;  }
+  #flipbook .page img { width:100%; height:100%; object-fit:contain; display:block; user-select:none; -webkit-user-drag:none }
+  .nav-overlay{ position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr; z-index:90; pointer-events:none; }
+  .nav-hit{ pointer-events:auto }
+  .pager{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); padding:8px 12px; border-radius:10px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); font-size:13px; z-index: 100;}
+  .error{ position:fixed; top:72px; left:50%; transform:translateX(-50%); background:#ffebe8; color:#631212; padding:8px 12px; border-radius:8px; border:1px solid #f5c2be; display:none; z-index:120 }
+  @media (max-width:700px){ #flipbook-wrap{ width: calc(100vw - 28px); } }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="dot"></span> ScienceGears</div>
+  <div class="controls">
+    <button id="prevBtn" class="btn">⟵ Prev</button>
+    <button id="nextBtn" class="btn">Next ⟶</button>
+    <button id="fsBtn" class="btn">⛶ Fullscreen</button>
+  </div>
+</header>
+
+<main class="stage">
+  <div id="flipbook-wrap">
+    <div id="flipbook"></div>
+    <div class="nav-overlay" aria-hidden="true">
+      <div id="navPrev" class="nav-hit"></div>
+      <div id="navNext" class="nav-hit"></div>
+    </div>
+  </div>
+  <div id="pager" class="pager">Page 0 / 0</div>
+  <div id="error" class="error"></div>
+</main>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Turn.js loader -->
+<script>
+(function insertTurn(){
+  const local = document.createElement('script');
+  local.src = './turn.min.js';
+  local.onload = ()=>console.info('Loaded local turn.js');
+  local.onerror = ()=>{
+    console.warn('Local turn.js not found — trying CDN');
+    const cdn = document.createElement('script');
+    cdn.src = 'js/turn.min.js';
+    cdn.onload = ()=>console.info('Loaded turn.js from CDN');
+    cdn.onerror = ()=> {
+      document.getElementById('error').textContent = 'Turn.js not loaded. Place turn.min.js in this folder.';
+      document.getElementById('error').style.display = 'block';
+    };
+    document.head.appendChild(cdn);
+  };
+  document.head.appendChild(local);
+})();
+</script>
+
+<script>
+// === CONFIG: update your images (A4 ratio recommended) ===
+const IMAGES = [
+  'assets/images/cover-front.png',
+  'assets/images/categories-1.png',
+  'assets/images/categories-2.png',
+  'assets/images/categories-3.png',
+   'assets/images/categories-4.png',
+  'assets/images/categories-5.png',
+  'assets/images/p-1.png',
+   'assets/images/p-2.png',
+  'assets/images/p-3.png',
+  'assets/images/cover-back.png'
+];
+// =========================================================
+
+function waitForTurn(timeout=5000){
+  return new Promise((res,rej)=>{
+    const t0=performance.now();
+    (function check(){
+      if(window.jQuery && typeof jQuery.prototype.turn==="function") return res();
+      if(performance.now()-t0>timeout) return rej(new Error("Turn.js not found"));
+      setTimeout(check,80);
+    })();
+  });
+}
+
+function preloadAll(paths){
+  return Promise.all(paths.map(p=>{
+    if(!p) return Promise.resolve(null);
+    return new Promise(res=>{
+      const img=new Image();
+      img.src=p;
+      img.onload=()=>res(img);
+      img.onerror=()=>res(null);
+    });
+  }));
+}
+
+async function initFlipbook(){
+  try{ await waitForTurn(6000);}catch(e){console.error(e);return;}
+
+  const pages=IMAGES.slice();
+  if(pages.length%2!==0) pages.push(null);
+
+  const imgs=await preloadAll(pages);
+  const $flipbook=$('#flipbook').empty();
+
+  imgs.forEach((el)=>{
+    const page=$('<div/>').addClass('page');
+    if(el){
+      $(el).css({width:'100%',height:'100%',objectFit:'contain',display:'block'});
+      page.append(el);
+    }
+    $flipbook.append(page);
+  });
+
+  // size: keep A4 ratio
+  const wrap=document.getElementById('flipbook-wrap');
+  let bookWidth=Math.min(wrap.clientWidth,1200);
+  let bookHeight=Math.round(bookWidth*0.707); // double-page height
+  if(bookHeight>window.innerHeight-100){
+    bookHeight=window.innerHeight-100;
+    bookWidth=Math.round(bookHeight/0.707);
+  }
+  $flipbook.css({width:bookWidth+'px',height:bookHeight+'px'});
+  $flipbook.find('.page').css({width:(bookWidth/2)+'px',height:bookHeight+'px'});
+
+  $flipbook.turn({
+    width:bookWidth,
+    height:bookHeight,
+    autoCenter:true,
+    display:'double',
+    elevation:60,
+    gradients:true,
+    duration:800
+  });
+
+  // update pager
+  function updatePager(){
+    const total=$flipbook.turn('pages');
+    const page=$flipbook.turn('page');
+    $('#pager').text(`Page ${Math.min(page,total)} / ${total}`);
+    $('#prevBtn').prop('disabled',page<=1);
+    $('#nextBtn').prop('disabled',page>=total);
+  }
+  $flipbook.bind('turned',()=>updatePager());
+  updatePager();
+
+  // controls
+  $('#nextBtn').on('click',()=> $flipbook.turn('next'));
+  $('#prevBtn').on('click',()=> $flipbook.turn('previous'));
+  $('#navPrev').on('click',()=> $flipbook.turn('previous'));
+  $('#navNext').on('click',()=> $flipbook.turn('next'));
+  $('#fsBtn').on('click',()=>{
+    if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  });
+
+  window.addEventListener('keydown',(e)=>{
+    if(e.key==='ArrowRight') $flipbook.turn('next');
+    if(e.key==='ArrowLeft') $flipbook.turn('previous');
+  });
+
+$flipbook.turn("size", newWidth, newHeight);
+
+
+  // resize
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const wrap = document.getElementById("flipbook-wrap");
+    let bookWidth = Math.min(wrap.clientWidth, 1700);
+    let bookHeight = Math.round(bookWidth * 0.707); // maintain A4 ratio
+
+    if (bookHeight > window.innerHeight - 150) {
+      bookHeight = window.innerHeight - 150;
+      bookWidth = Math.round(bookHeight / 0.707);
+    }
+
+    // Resize flipbook
+    $("#flipbook").turn("size", bookWidth, bookHeight);
+
+    // Adjust page sizes too
+    $("#flipbook .page").css({
+      width: bookWidth / 2 + "px",
+      height: bookHeight + "px"
+    });
+    
+  }, 200);
+});
+
+
+}
+
+$(function(){ setTimeout(initFlipbook,200); });
+</script>
+</body>
+</html>
