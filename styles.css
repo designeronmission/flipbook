@@ -1,0 +1,393 @@
+/* Custom CSS for Portable Potentiostat Page */
+
+/* Global Styles */
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Section */
+.header-section {
+    background-color: #00163c;
+    height: 82px;
+    display: flex
+;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0 25px;
+}
+
+.header-title, .header-page {
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* Title Section */
+.title-section {
+        margin-top: 40px;
+    padding: 0 25px;
+}
+
+.main-title {
+    color: #00163c;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 7px;
+    margin-bottom: 30px;
+}
+
+.subtitle-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.subtitle {
+       color: rgba(14, 24, 40, 0.7);
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 0px;
+    margin: 0;
+}
+
+.subtitle-italic {
+    color: rgba(14, 24, 40, 0.7);
+    font-style: italic;
+    font-size: 25px;
+    margin: 0;
+}
+
+/* Description Section */
+.description-section {
+    margin-top: 30px;
+    padding: 0 28px;
+}
+
+.description-text {
+   color: #424242;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 35px;
+    margin: 0;
+}
+
+/* Product Section */
+.product-section {
+    margin-top: 50px;
+    padding: 0 25px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid silver;
+    box-shadow: 0px 14px 4px 0px rgba(224, 224, 224, 0.25);
+    border-radius: 5px;
+    padding: 30px;
+    height: 313px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Specifications Container */
+.specifications-container {
+    background-color: #e7f2ff;
+    border-radius: 5px;
+    height: 650px;
+    position: relative;
+    padding: 30px 49px;
+}
+
+.spec-header {
+    margin-bottom: 20px;
+}
+
+.spec-title {
+    color: black;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: normal;
+    margin: 0;
+}
+
+.spec-divider {
+    height: 3px;
+    background-color: #B9CFFF;
+    margin: 20px 0 40px 0;
+    transform: rotate(0.314deg);
+}
+
+.spec-divider-vertical {
+    position: absolute;
+    top: 6px;
+    left: 40%;
+    width: 3px;
+    height: 640px;
+    background-color: #B9CFFF;
+    transform: translateX(-50%);
+}
+
+.spec-content {
+    position: relative;
+}
+
+.spec-row {
+    display: flex;
+    margin-bottom: 44px;
+    align-items: center;
+}
+
+.spec-param {
+    flex: 1;
+    color: black;
+    font-weight: 800;
+    font-size: 15px;
+    line-height: normal;
+    padding-right: 20px;
+}
+
+.spec-value {
+    flex: 1;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: normal;
+    padding-left: 20px;
+}
+
+/* Features Section */
+.features-section {
+    margin-top: 60px;
+    padding: 0 25px;
+    padding-bottom: 0px;
+}
+
+.feature-item {
+        display: flex
+;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    gap: 19px;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+}
+
+.feature-text {
+    flex: 1;
+    font-size: 20px;
+    line-height: 35px;
+    color: #424242;
+    font-weight: 600;
+}
+
+.feature-title {
+    color: #1e1e1e;
+    font-weight: 800;
+}
+
+.feature-description {
+    color: #424242;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .header-section {
+        padding: 0 50px;
+    }
+    
+    .title-section,
+    .description-section,
+    .product-section,
+    .features-section {
+        padding: 0 50px;
+    }
+    
+    .main-title {
+        font-size: 40px;
+    }
+    
+    .subtitle {
+        font-size: 25px;
+    }
+    
+    .subtitle-italic {
+        font-size: 20px;
+    }
+    
+    .description-text {
+        font-size: 15px;
+        line-height: 60px;
+    }
+    
+    .feature-text {
+        font-size: 15px;
+        line-height: 50px;
+    }
+    
+    .spec-param,
+    .spec-value {
+        font-size: 14px;
+    }
+    
+    .spec-title {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 992px) {
+    .subtitle-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .specifications-container {
+        margin-top: 40px;
+        height: auto;
+        min-height: 600px;
+    }
+    
+    .spec-divider-vertical {
+        display: none;
+    }
+    
+    .spec-row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+    
+    .spec-param,
+    .spec-value {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        padding: 0 20px;
+        height: auto;
+        min-height: 100px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .title-section,
+    .description-section,
+    .product-section,
+    .features-section {
+        padding: 0 20px;
+    }
+    
+    .header-title,
+    .header-page {
+        font-size: 20px;
+        line-height: 50px;
+    }
+    
+    .main-title {
+        font-size: 30px;
+        line-height: 70px;
+    }
+    
+    .subtitle {
+        font-size: 20px;
+        line-height: 50px;
+    }
+    
+    .subtitle-italic {
+        font-size: 10px;
+        line-height: 40px;
+    }
+    
+    .description-text {
+        font-size: 18px;
+        line-height: 40px;
+    }
+    
+    .feature-item {
+        gap: 20px;
+    }
+    
+    .feature-text {
+        font-size: 18px;
+        line-height: 40px;
+    }
+    
+    .product-card {
+        height: 300px;
+        padding: 20px;
+    }
+    
+    .specifications-container {
+        padding: 20px;
+    }
+    
+    .spec-param,
+    .spec-value {
+        font-size: 10px;
+    }
+    
+    .spec-title {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .feature-icon {
+        align-self: center;
+    }
+    
+    .main-title {
+        font-size: 28px;
+        line-height: 55px;
+    }
+    
+    .subtitle {
+        font-size: 12px;
+        line-height: 40px;
+    }
+    
+    .subtitle-italic {
+        font-size: 14px;
+        line-height: 32px;
+    }
+    
+    .description-text {
+        font-size: 12px;
+        line-height: 32px;
+    }
+    
+    .feature-text {
+        font-size: 12px;
+        line-height: 32px;
+    }
+}
