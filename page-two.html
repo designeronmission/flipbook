@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIMPS Photoelectrochemistry</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts - Lato -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #ffffff;
+            line-height: 1.5;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .main-header {
+            background-color: #00163c;
+            color: white;
+        }
+
+        .main-title {
+            color: #00163c;
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .section-title {
+            color: rgba(14, 24, 40, 0.7);
+            font-size: 25px;
+            font-weight: 800;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .section-description {
+            color: #424242;
+            font-size: 1.25rem;
+            font-weight: 500;
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* Modern Table Design */
+        .specs-table-container {
+            background-color: #e7f2ff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 22, 60, 0.1);
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .specs-table th {
+            background-color: #b3c7df;
+            color: rgb(24, 24, 24);
+            font-weight: 700;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1rem;
+            border: none;
+        }
+
+        .specs-table th:first-child {
+            border-top-left-radius: 8px;
+        }
+
+        .specs-table th:last-child {
+            border-top-right-radius: 8px;
+        }
+
+        .specs-table td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #c5dcff;
+            vertical-align: top;
+        }
+
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .specs-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .specs-table tr:hover {
+            background-color: rgba(185, 207, 255, 0.3);
+        }
+
+        .spec-label {
+            color: #020202;
+            font-size: 16px;
+            font-weight: 800;
+            font-family: 'Lato', sans-serif;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .spec-value {
+            color: #020202;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Lato', sans-serif;
+            margin-bottom: 0;
+            line-height: 1.8;
+        }
+
+        .table-icon {
+            color: #00163c;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .image-container {
+            position: relative;
+            top: 40px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .equipment-image-1 {
+            max-height: 250px;
+        }
+
+        .equipment-image-2 {
+            max-height: 250px;
+        }
+
+        @media (max-width: 991.98px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+            }
+
+            .spec-label,
+            .spec-value {
+                font-size: 0.95rem;
+            }
+
+            .image-container {
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .specs-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+
+            .spec-label,
+            .spec-value {
+                font-size: 0.875rem;
+            }
+
+            .specs-table-container {
+                padding: 15px;
+            }
+
+            .specs-table th,
+            .specs-table td {
+                padding: 12px 10px;
+            }
+        }
+
+        .sec-2 {
+            margin-top: 80px;
+        }
+          .sec-3 {
+            margin-top: 120px;
+        }
+
+        .pr-1{
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header class="main-header py-4">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h2 class="mb-0" style="font-size: 20px; font-weight: 800;">
+                            Electrochemistry Accessories
+                        </h2>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <span style="font-size: 20px; font-weight: 800;">
+                            Page.no: 12
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Title -->
+        <section class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="main-title mb-4">Electrochemical Cell</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- CIMPS Section -->
+        <section class="container-fluid mb-5">
+            <div class="row">
+                <!-- Content Column (col-8) -->
+                <div class="col-lg-9">
+                    <h2 class="section-title mb-3">Glass Electrochemical Cell, unsealed</h2>
+                    <p class="section-description mb-4">
+                        Precision engineering for accurate measurements
+                    </p>
+                    <!-- Modern Table Design -->
+                    <div class="specs-table-container">
+                        <table class="specs-table">
+                            <tbody>
+                                               <thead>
+                                <tr>
+                                    <th width="40%">Parameter</th>
+                                    <th width="60%">Specification</th>
+                                </tr>
+                            </thead>
+
+                                <tr>
+                                    <td>
+                                        <span class="spec-label">Model</span>
+                                    </td>
+                                    <td>
+                                        <span class="spec-value">Model:SEC002</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="spec-label">Specification</span>
+                                    </td>
+                                    <td>
+                                        <span class="spec-value">Glass cell+PTFE cap, unsealed, with gas inlet/outlet pipe</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="spec-label">Capacity</span>
+                                    </td>
+                                    <td>
+                                        <span class="spec-value">15ml, 30ml, 50ml, 100ml,150ml, 200ml, 250ml, 500ml</span>
+                                    </td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Images Column (col-4) -->
+                <div class="col-lg-3">
+                    <div class="image-container d-flex flex-column align-items-end">
+                        <img src="assets/images/glass-cell-1.png" alt="CIMPS Equipment" class="equipment-image-1 mb-4">
+                        <img src="assets/images/glass-cell-1.png" alt="CIMPS Equipment 2" class="equipment-image-2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <section class="container-fluid mb-5 sec-3">
+            <div class="col-lg-12 row g-2">
+                <div class="col-lg-6">
+                    <h2 class="section-title mb-3">Glass Electrochemical Cell, unsealed</h2>
+                    <p class="section-description mb-4">
+                        Precision engineering for accurate measurements
+                    </p>
+
+                    <div class="col-lg-12 row mt-4">
+                        <div class="col-lg-6">
+                            <img src="assets/images/Sealed-Electrochemical-Cell-1.png" alt="img" class="pr-1">
+                        </div>
+                         <div class="col-lg-6">
+                            <img src="assets/images/Sealed-Electrochemical-Cell-2.png" alt="img" class="pr-1">
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-6">
+                    <h2 class="section-title mb-3">Glass Electrochemical Cell, unsealed</h2>
+                    <p class="section-description mb-4">
+                        Precision engineering for accurate measurements
+                    </p>
+
+                    <div class="col-lg-12 row mt-4">
+                        <div class="col-lg-6">
+                            <img src="assets/images/Jacketed-Sealed-Glass-Cell-1.png" alt="img" class="pr-1">
+                        </div>
+                         <div class="col-lg-6">
+                            <img src="assets/images/Jacketed-Sealed-Glass-Cell-2.png" alt="img" class="pr-1">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </section>
+
+            <section class="container-fluid mb-5 sec-3">
+            <div class="col-lg-12 row g-2">
+                <div class="col-lg-6">
+                    <h2 class="section-title mb-3">5-Port Electrolytic Cell</h2>
+                    <p class="section-description mb-4">
+                        5-Port Electrolytic Cell
+                    </p>
+
+                    <div class="col-lg-12 row mt-4">
+                        <div class="col-lg-6">
+                            <img src="assets/images/5-port-1.png" alt="img" class="pr-1">
+                        </div>
+                         <div class="col-lg-6">
+                            <img src="assets/images/5-port-2.png" alt="img" class="pr-1">
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-lg-6">
+                    <h2 class="section-title mb-3">Jacketed 5-Port Electrolytic Cell</h2>
+                    <p class="section-description mb-4">
+                        Jacketed 5-Port Electrolytic Cell
+                    </p>
+
+                    <div class="col-lg-12 row mt-4">
+                        <div class="col-lg-6">
+                            <img src="assets/images/Jacketed 5-Port-1.png" alt="img" class="pr-1">
+                        </div>
+                         <div class="col-lg-6">
+                            <img src="assets/images/Jacketed 5-Port-1.png" alt="img" class="pr-1">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </section>
+
+
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
